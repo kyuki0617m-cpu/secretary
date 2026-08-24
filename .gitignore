@@ -1,0 +1,12 @@
+# 個人のメモ・タスク・振り返りの中身（公開しない）
+data.json
+data.json.tmp
+
+# Node.js
+node_modules/
+npm-debug.log*
+
+# OS が作るファイル
+Thumbs.db
+desktop.ini
+.DS_Store
