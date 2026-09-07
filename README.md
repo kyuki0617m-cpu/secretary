@@ -1,20 +1,28 @@
 # マイ秘書（自分専用の秘書アプリ）
 
-Node.js の標準機能だけで動く、メモ・タスク管理・ダッシュボードのアプリです。
+Node.js の標準機能だけで動く、メモ・タスク管理・週次振り返り・ダッシュボードのアプリです。
 外部パッケージのインストールは不要です（`npm install` は要りません）。
 
-## 起動方法
+## すぐ試す（ブラウザ版）
 
-PowerShell で次を実行します。
+**<https://kyuki0617m-cpu.github.io/secretary/>**
+
+インストール不要で、開くだけで操作できます。こちらは GitHub Pages 用の静的版（`docs/index.html`）で、
+入力内容は閲覧者自身のブラウザ内（localStorage）にのみ保存されます。サーバーには送信されません。
+
+## ローカルで動かす（Node.js 版）
+
+このリポジトリをダウンロードし、フォルダ内で次を実行します。
 
 ```
-& "C:\Program Files\nodejs\node.exe" "C:\Users\yuki0\Desktop\claudecode\secretary\server.js"
+node server.js
 ```
 
 起動したらブラウザで <http://localhost:3000> を開いてください。
 終了するときは、実行中のウィンドウで `Ctrl + C` を押します。
 
-`node` に PATH が通っている環境なら、このフォルダで `node server.js` だけでも起動できます。
+`node` に PATH が通っていない場合は、Node.js の実行ファイルをフルパスで指定します（例: Windows なら
+`& "C:\Program Files\nodejs\node.exe" server.js`）。
 ポートを変えたいときは `PORT` を指定します（例: `$env:PORT=3001` してから起動）。
 
 ## 機能
@@ -28,16 +36,22 @@ PowerShell で次を実行します。
 
 ## データの保存先
 
-同じフォルダの `data.json` に自動保存されます。アプリを閉じても内容は残り、次に起動したときに読み込まれます。
-バックアップを取りたいときは `data.json` をコピーしてください。
+| 版 | 保存先 |
+| --- | --- |
+| Node.js 版 | 同じフォルダの `data.json`。アプリを閉じても内容は残り、次の起動時に読み込まれます |
+| ブラウザ版 | 閲覧者のブラウザ内（localStorage）。他の人や他の端末とは共有されません |
+
+`data.json` は個人の記録なので、このリポジトリには含めていません（`.gitignore` で除外）。
+Node.js 版は初回の追加時に `data.json` を自動作成します。
 
 ## ファイル構成
 
 | ファイル | 役割 |
 | --- | --- |
 | `server.js` | HTTP サーバーと API、`data.json` への読み書き |
-| `index.html` | 画面（ダッシュボード・メモ・タスク） |
-| `data.json` | 保存されたメモとタスク（初回の追加時に自動作成） |
+| `index.html` | 画面（Node.js 版。サーバーの API を利用） |
+| `docs/index.html` | 画面（ブラウザ版。GitHub Pages で公開。localStorage に保存） |
+| `data.json` | 保存されたメモ・タスク・振り返り（初回の追加時に自動作成、リポジトリには含めない） |
 
 ## API（画面が内部で使っているもの）
 
